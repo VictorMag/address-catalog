@@ -42,6 +42,7 @@ public class IndexModel : PageModel
             CurrentPage = currentPage;
             var (items, total) = await _service.GetPagedAsync(currentPage, PageSize);
             Addresses = items;
+            TotalCount = total;
             TotalPages = (int)Math.Ceiling(total / (double)PageSize);
             await LoadDropdownsAsync();
             return Page();

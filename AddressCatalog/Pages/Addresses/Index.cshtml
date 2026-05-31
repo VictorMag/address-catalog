@@ -6,7 +6,7 @@
 
 <div class="page-header">
     <div>
-        <h1 class="page-title">Catálogo de Diracciones</h1>
+        <h1 class="page-title">Catálogo de Direcciones</h1>
         <p class="page-meta">@Model.TotalCount registros · @Model.ItemsPerPage por página</p>
     </div>
     <span class="page-counter">p. @Model.CurrentPage / @Model.TotalPages</span>
@@ -94,11 +94,8 @@
             <span class="page-ellipsis">…</span>
         }
 
-        @if (Model.TotalPages > 1)
-        {
-            <a class="page-btn @(Model.CurrentPage == Model.TotalPages ? "active" : "")"
-               asp-page="./Index" asp-route-p="@Model.TotalPages">@Model.TotalPages</a>
-        }
+        <a class="page-btn @(Model.CurrentPage == Model.TotalPages ? "active" : "")"
+           asp-page="./Index" asp-route-p="@Model.TotalPages">@Model.TotalPages</a>
 
         @if (Model.CurrentPage < Model.TotalPages)
         {
@@ -123,7 +120,7 @@
             <form method="post" asp-page-handler="Edit" asp-route-currentPage="@Model.CurrentPage">
                 <div class="modal-header">
                     <div style="display:flex;align-items:center;gap:10px;">
-                        <h5 class="modal-title">Editar Address</h5>
+                        <h5 class="modal-title">Editar Dirección</h5>
                         <span class="modal-id-badge" id="modalAddressId"></span>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -134,7 +131,7 @@
                     <div class="mb-4">
                         <label asp-for="EditModel.City" class="form-label">City</label>
                         <select asp-for="EditModel.City" asp-items="Model.Cities" class="form-select" id="EditModel_City">
-                            <option value="">Select a city</option>
+                            <option value="">Selecciona una ciudad</option>
                         </select>
                         <span asp-validation-for="EditModel.City" class="field-error"></span>
                     </div>
@@ -142,7 +139,7 @@
                     <div>
                         <label asp-for="EditModel.StateProvince" class="form-label">State / Province</label>
                         <select asp-for="EditModel.StateProvince" asp-items="Model.States" class="form-select" id="EditModel_StateProvince">
-                            <option value="">Select a state</option>
+                            <option value="">Selecciona un estado</option>
                         </select>
                         <span asp-validation-for="EditModel.StateProvince" class="field-error"></span>
                     </div>
