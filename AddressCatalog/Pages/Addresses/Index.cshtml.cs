@@ -17,17 +17,20 @@ public class IndexModel : PageModel
     public IEnumerable<Address> Addresses { get; set; } = [];
     public int CurrentPage { get; set; }
     public int TotalPages { get; set; }
+    public int TotalCount { get; set; }
+    public int ItemsPerPage => PageSize;
     public SelectList Cities { get; set; } = null!;
     public SelectList States { get; set; } = null!;
 
     [BindProperty]
     public AddressEditDto EditModel { get; set; } = new();
 
-    public async Task OnGetAsync(int page = 1)
+    public async Task OnGetAsync(int p = 1)
     {
-        CurrentPage = page;
-        var (items, total) = await _service.GetPagedAsync(page, PageSize);
+        CurrentPage = p;
+        var (items, total) = await _service.GetPagedAsync(p, PageSize);
         Addresses = items;
+        TotalCount = total;
         TotalPages = (int)Math.Ceiling(total / (double)PageSize);
         await LoadDropdownsAsync();
     }
@@ -47,7 +50,7 @@ public class IndexModel : PageModel
         var updated = await _service.UpdateAsync(EditModel);
         if (!updated) return NotFound();
 
-        return RedirectToPage(new { page = currentPage });
+        return RedirectToPage(new { p = currentPage });
     }
 
     private async Task LoadDropdownsAsync()
